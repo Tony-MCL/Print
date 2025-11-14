@@ -20,18 +20,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 16px; /* litt mindre enn forrige (32px) */
+  padding: 24px 16px;
   box-sizing: border-box;
 }
 
-/* Kortet som rapporten ligger i */
+/* Kortet som rapporten ligger i (skjerm) */
 .pe-page {
   max-width: 800px;
   width: 100%;
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  padding: 24px 32px 32px; /* gjort litt mer kompakt enn 32/40/40 */
+  padding: 24px 32px 32px;
   box-sizing: border-box;
   position: relative;
 }
@@ -213,15 +213,12 @@ body {
     display: none !important;
   }
 
-  /* Seksjoner i print: litt ekstra luft mellom dem,
-     men første seksjon står tight under headeren */
+  /* Seksjoner i print:
+     -> ingen ekstra mm her, vi bruker samme spacing som på skjerm
+        for å holde totalhøyden nede (en-sides-rapport) */
   .pe-section {
     page-break-inside: avoid;
-    margin-top: 12mm;
-  }
-
-  .pe-section:first-of-type {
-    margin-top: 0;
+    /* margin-top beholdes fra skjerm (16px) */
   }
 
   /* Print overlay aktiveres og ligger over alle sider */
@@ -247,15 +244,16 @@ body {
     height: auto;
   }
 
-  /* Logo i topp-høyre hjørne – ligger utenfor innholdet */
+  /* Logo i topp-høyre hjørne – litt høyere og litt mindre
+     for å unngå overlapp med tekst på lange rapporter */
   .print-overlay-logo {
     position: fixed;
-    top: 4mm;
+    top: 2mm;     /* var 4mm */
     right: 10mm;
   }
 
   .print-overlay-logo img {
-    max-height: 24px;
+    max-height: 20px; /* var 24px */
     width: auto;
   }
 
