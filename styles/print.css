@@ -117,6 +117,12 @@
   font-size: 0.9rem;
 }
 
+/* Viktig for utskrift: unngå at seksjoner splittes stygt */
+.pe-section {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
 .pe-section + .pe-section {
   margin-top: 1.1rem;
 }
@@ -165,6 +171,12 @@
 
 .pe-table-wrapper {
   margin-top: 0.4rem;
+}
+
+/* Unngå at rader splittes over sidene */
+.pe-table tr {
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .pe-table {
