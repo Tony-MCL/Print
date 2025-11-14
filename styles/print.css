@@ -20,7 +20,7 @@
   overflow: hidden;
 }
 
-/* Vannmerke */
+/* Vannmerke – skjerm */
 
 .pe-watermark {
   position: absolute;
@@ -71,7 +71,7 @@
   color: var(--mcl-text-muted);
 }
 
-/* Logo oppe til høyre */
+/* Logo – skjerm (ligger ved siden av tittel) */
 
 .pe-logo {
   flex: 0 0 auto;
@@ -246,14 +246,38 @@
     border-radius: 0;
     max-width: 100%;
     padding: 0;
+    overflow: visible; /* la innhold flyte over flere sider */
   }
 
   .pe-no-print {
     display: none !important;
   }
 
-  /* litt sterkere vannmerke på utskrift */
+  /* Vannmerke: midt på hvert ark */
   .pe-watermark {
-    opacity: 0.09;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    inset: auto;
+    transform: translate(-50%, -50%);
+    opacity: 0.08;
+    z-index: 0;
+  }
+
+  .pe-watermark img {
+    max-width: 70%;
+  }
+
+  /* Logo: øverst til høyre på hvert ark */
+  .pe-logo {
+    position: fixed;
+    top: 15mm;   /* juster ved behov */
+    right: 20mm; /* juster ved behov */
+    transform: none;
+    z-index: 2;
+  }
+
+  .pe-logo img {
+    max-height: 30px;
   }
 }
