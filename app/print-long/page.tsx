@@ -1,6 +1,9 @@
+// /app/print-long/page.tsx
+
 import PrintLayout from "../../components/print/PrintLayout";
 import PrintButton from "../../components/print/PrintButton";
 import type { PrintData, PrintTableRow } from "../../lib/print/types";
+import { resolvePrintBranding } from "../../lib/print/branding";
 
 function makeRows(count: number): PrintTableRow[] {
   const rows: PrintTableRow[] = [];
@@ -31,7 +34,7 @@ const longData: PrintData = {
       content: [
         {
           type: "paragraph",
-          text: "Denne rapporten er laget for å teste utskrift over flere sider. Tabellene under er lange nok til å tvinge frem side 2, 3 og eventuelt 4, slik at vi kan verifisere at vannmerke ikke forstyrrer innholdet og at logoen ikke ligger oppå tabellen på senere sider."
+          text: "Denne rapporten er laget for å teste utskrift over flere sider, og for å verifisere at vannmerket ligger bak innholdet og at logoen ikke ligger oppå tabellen på senere sider."
         }
       ]
     },
@@ -49,20 +52,14 @@ const longData: PrintData = {
   ]
 };
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-
 export default function PrintLongPage() {
-  const watermarkUrl = `${basePath}/images/mcl-watermark.png`;
-  const logoUrl = `${basePath}/images/mcl-logo.png`;
+  const branding = resolvePrintBranding({ mode: "mcl" });
 
   return (
     <main>
       <PrintLayout
         {...longData}
-        watermarkUrl={watermarkUrl}
-        showWatermark={true}
-        logoUrl={logoUrl}
-        logoAlt="Morning Coffee Labs"
+        {...branding}
       />
 
       <div className="pe-root pe-no-print">
