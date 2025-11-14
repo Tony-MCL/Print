@@ -1,0 +1,7 @@
+@import "../styles/theme.css";
+@import "../styles/print.css";
+
+/* Litt enkel base-styling for demoen */
+body {
+  margin: 0;
+}
