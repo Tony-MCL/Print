@@ -1,9 +1,9 @@
 // /lib/print/branding.ts
 
 export type BrandingMode =
-  | "mcl"                  // MCL-logo + MCL-vannmerke (typisk LITE/demo)
-  | "mcl-no-watermark"     // MCL-logo, men uten vannmerke (betalt lisens)
-  | "customer"             // Kun kundens logo, ingen vannmerke
+  | "mcl" // MCL-logo + MCL-vannmerke (typisk LITE/demo)
+  | "mcl-no-watermark" // MCL-logo, men uten vannmerke (betalt lisens)
+  | "customer" // Kun kundens logo, ingen vannmerke (white-label)
   | "customer-with-watermark"; // Kundens logo + MCL-vannmerke
 
 export type BrandingInput = {
@@ -50,7 +50,7 @@ function resolveBasePath(explicit?: string): string {
 export function resolvePrintBranding(input: BrandingInput): PrintBranding {
   const basePath = resolveBasePath(input.basePath);
 
-  const mclLogoUrl = `${basePath}/images/mcl-logo-print.png`;
+  const mclLogoUrl = `${basePath}/images/mcl-logo.png`;
   const mclWatermarkUrl = `${basePath}/images/mcl-watermark.png`;
 
   switch (input.mode) {
