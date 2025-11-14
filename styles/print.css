@@ -155,7 +155,7 @@ body {
    ---------------------------------------------------- */
 
 @media print {
-  /* A4, felles marg for alle sider (Chromium-begrensning) */
+
   @page {
     size: A4;
     margin: 20mm 10mm 10mm 10mm; /* top right bottom left */
@@ -180,12 +180,12 @@ body {
     visibility: visible;
   }
 
-  /* Root som inneholder rapporten i utskrift */
+  /* --- SENK ALT INNHOLD MED 20mm --- */
   #print-root {
     position: static;
     box-shadow: none !important;
     margin: 0 !important;
-    padding: 20mm 0 0 0 !important; /* plass til overlay-logo */
+    padding-top: 40mm !important; /* var ~20mm, vi legger på +20mm */
   }
 
   .pe-page {
@@ -198,30 +198,29 @@ body {
     overflow: visible;
   }
 
-  /* Alt merket som "ikke print" skjules */
+  /* Ikke-show */
   .pe-no-print {
     display: none !important;
   }
 
-  /* Vi bruker overlay-vannmerke i print – ikke den inne i kortet */
+  /* Ikke vannmerke inne i kortet */
   .pe-watermark {
     display: none !important;
+    visibility: hidden !important;
   }
 
-  /* Logo inne i headeren skjules i print – bare overlay-logo brukes */
+  /* Ikke logo inne i header */
   .pe-logo {
     display: none !important;
   }
 
-  /* Seksjoner i print:
-     -> ingen ekstra mm her, vi bruker samme spacing som på skjerm
-        for å holde totalhøyden nede (en-sides-rapport) */
+  /* Seksjoner holdes like */
   .pe-section {
     page-break-inside: avoid;
-    /* margin-top beholdes fra skjerm (16px) */
   }
 
-  /* Print overlay aktiveres og ligger over alle sider */
+  /* --- Overlay --- */
+
   #print-overlay {
     display: block;
     position: fixed;
@@ -230,7 +229,7 @@ body {
     z-index: 999;
   }
 
-  /* Vannmerke på alle sider (midt på arket) */
+  /* Vannmerke midt på hver side */
   .print-overlay-watermark {
     position: fixed;
     top: 50%;
@@ -244,20 +243,18 @@ body {
     height: auto;
   }
 
-  /* Logo i topp-høyre hjørne – litt høyere og litt mindre
-     for å unngå overlapp med tekst på lange rapporter */
+  /* Logo i topp-høyre hjørne */
   .print-overlay-logo {
     position: fixed;
-    top: 2mm;     /* var 4mm */
+    top: 2mm;
     right: 10mm;
   }
 
   .print-overlay-logo img {
-    max-height: 20px; /* var 24px */
+    max-height: 20px;
     width: auto;
   }
 
-  /* Header-linjen trenger ikke ta hensyn til logo i print */
   .pe-header-top {
     justify-content: flex-start;
   }
