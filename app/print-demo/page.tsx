@@ -1,6 +1,9 @@
+// /app/print-demo/page.tsx
+
 import PrintLayout from "../../components/print/PrintLayout";
 import PrintButton from "../../components/print/PrintButton";
 import type { PrintData } from "../../lib/print/types";
+import { resolvePrintBranding } from "../../lib/print/branding";
 
 const demoData: PrintData = {
   title: "Ohms lov",
@@ -33,7 +36,7 @@ const demoData: PrintData = {
     },
     {
       id: "values",
-      title: "Inndata og resultat",
+      title: "Verdier brukt i dette eksemplet",
       content: [
         {
           type: "keyValueList",
@@ -50,20 +53,15 @@ const demoData: PrintData = {
   ]
 };
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-
 export default function PrintDemoPage() {
-  const watermarkUrl = `${basePath}/images/mcl-watermark.png`;
-  const logoUrl = `${basePath}/images/mcl-logo.png`;
+  // Her kan du senere bytte mode basert på lisens / app-konfig
+  const branding = resolvePrintBranding({ mode: "mcl" });
 
   return (
     <main>
       <PrintLayout
         {...demoData}
-        watermarkUrl={watermarkUrl}
-        showWatermark={true}
-        logoUrl={logoUrl}
-        logoAlt="Morning Coffee Labs"
+        {...branding}
       />
 
       <div className="pe-root pe-no-print">
