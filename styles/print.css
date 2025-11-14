@@ -185,7 +185,7 @@ body {
     position: static;
     box-shadow: none !important;
     margin: 0 !important;
-    padding-top: 20mm !important; /* var ~20mm, vi legger på +20mm */
+    padding-top: 50mm !important; /* var ~20mm, vi legger på +20mm */
   }
 
   .pe-page {
