@@ -1,3 +1,4 @@
+// app/print-demo/page.tsx
 import PrintLayout from "../../components/print/PrintLayout";
 import PrintButton from "../../components/print/PrintButton";
 import PrintOverlay from "../../components/print/PrintOverlay";
@@ -94,35 +95,36 @@ const demoData: PrintData = {
 
 export default function PrintDemoPage() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-
   const watermarkUrl = `${basePath}/images/mcl-watermark.png`;
   const logoUrl = `${basePath}/images/mcl-logo.png`;
 
   return (
-    <main className="print-page-shell">
-      {/* Globalt overlay brukes kun i print */}
+    <>
+      {/* Overlay helt utenfor print-root – følger "arket" mest mulig */}
       <PrintOverlay
         watermarkUrl={watermarkUrl}
         logoUrl={logoUrl}
         logoAlt="Morning Coffee Labs"
       />
 
-      <div id="print-root">
-        <PrintLayout
-          title={demoData.title}
-          subtitle={demoData.subtitle}
-          meta={demoData.meta}
-          sections={demoData.sections}
-          watermarkUrl={watermarkUrl}
-          showWatermark
-          logoUrl={logoUrl}
-          logoAlt="Morning Coffee Labs"
-        />
-      </div>
+      <main className="print-page-shell">
+        <div id="print-root">
+          <PrintLayout
+            title={demoData.title}
+            subtitle={demoData.subtitle}
+            meta={demoData.meta}
+            sections={demoData.sections}
+            watermarkUrl={watermarkUrl}
+            showWatermark
+            logoUrl={logoUrl}
+            logoAlt="Morning Coffee Labs"
+          />
+        </div>
 
-      <div className="print-toolbar pe-no-print">
-        <PrintButton label="Skriv ut / lagre som PDF" />
-      </div>
-    </main>
+        <div className="print-toolbar pe-no-print">
+          <PrintButton label="Skriv ut / lagre som PDF" />
+        </div>
+      </main>
+    </>
   );
 }
