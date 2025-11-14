@@ -49,8 +49,9 @@ const longData: PrintData = {
   ]
 };
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export default function PrintLongPage() {
-  const basePath = "";
   const watermarkUrl = `${basePath}/images/mcl-watermark.png`;
   const logoUrl = `${basePath}/images/mcl-logo.png`;
 
