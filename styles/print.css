@@ -232,7 +232,7 @@
 @media print {
   @page {
     size: A4;
-    margin: 20mm;
+    margin: 10mm;           /* var 20mm – mindre marger */
   }
 
   body {
@@ -253,12 +253,12 @@
     visibility: visible;
   }
 
-  /* 👉 Her reserverer vi plass til "topptekst" */
+  /* reserverer plass til header/topptekst */
   #print-root {
     position: static;
     box-shadow: none !important;
     margin: 0 !important;
-    padding: 18mm 0 0 0 !important; /* skyv alt innhold ned */
+    padding: 14mm 0 0 0 !important;  /* var 18mm – litt nærmere toppen */
   }
 
   .pe-page {
@@ -273,12 +273,10 @@
     display: none !important;
   }
 
-  /* Skjul kort-vannmerket i print – overlay tar over */
   .pe-watermark {
     display: none !important;
   }
 
-  /* Globalt overlay som legges oppå alle sider */
   #print-overlay {
     display: block;
     position: fixed;
@@ -287,7 +285,6 @@
     z-index: 999;
   }
 
-  /* Vannmerke midt på arket */
   .print-overlay-watermark {
     position: fixed;
     top: 50%;
@@ -300,19 +297,18 @@
     max-width: 75%;
   }
 
-  /* 🔹 Logo som "topptekst": i øvre høyre hjørne, over innholdet */
+  /* logo nesten helt oppe i hjørnet, på linje med tekst-margen */
   .print-overlay-logo {
     position: fixed;
-    top: 6mm;        /* nær toppen av papiret */
-    right: 20mm;     /* samme høyre-marg som innholdet */
+    top: 4mm;        /* nær toppen */
+    right: 10mm;     /* samme som @page-margin høyre */
   }
 
   .print-overlay-logo img {
-    max-height: 26px;
+    max-height: 24px;
     width: auto;
   }
 
-  /* Headeren trenger ikke ta hensyn til logo i print */
   .pe-header-top {
     justify-content: flex-start;
   }
