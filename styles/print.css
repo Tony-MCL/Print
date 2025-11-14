@@ -230,9 +230,15 @@
 /* ---------- PRINT ---------- */
 
 @media print {
+  /* Standard for alle sider UNNTATT førstesiden */
   @page {
     size: A4;
-    margin: 20mm 10mm 10mm 10mm; /* top right bottom left */
+    margin: 30mm 10mm 10mm 10mm; /* top right bottom left – litt ekstra top */
+  }
+
+  /* Egen marg for førstesiden (slik du likte den) */
+  @page:first {
+    margin: 20mm 10mm 10mm 10mm;
   }
 
   body {
@@ -254,12 +260,12 @@
     visibility: visible;
   }
 
-  /* Shift content down enough to avoid hitting overlay-logo */
+  /* Samme padding på innholdet alle sider – forskjellen tas i @page-margin */
   #print-root {
     position: static;
     box-shadow: none !important;
     margin: 0 !important;
-    padding: 20mm 0 0 0 !important; /* increased from 14mm → 20mm */
+    padding: 20mm 0 0 0 !important; /* plass til logo-headeren */
   }
 
   .pe-page {
@@ -274,7 +280,7 @@
     display: none !important;
   }
 
-  /* Disable inline watermark & inline logo in print */
+  /* Skjul inline watermark & inline logo i print – vi bruker overlay */
   .pe-watermark {
     display: none !important;
   }
@@ -292,7 +298,7 @@
     z-index: 999;
   }
 
-  /* Watermark on every page */
+  /* Vannmerke midt på hver side */
   .print-overlay-watermark {
     position: fixed;
     top: 50%;
@@ -306,11 +312,11 @@
     height: auto;
   }
 
-  /* Logo in top-right “header” */
+  /* Logo i “topptekst” – samme posisjon på alle sider */
   .print-overlay-logo {
     position: fixed;
-    top: 4mm;        /* stays at 4mm */
-    right: 10mm;     /* aligned with page margin */
+    top: 4mm;        /* beholder plasseringen du likte */
+    right: 10mm;     /* på linje med høyremarg */
   }
 
   .print-overlay-logo img {
@@ -318,7 +324,7 @@
     width: auto;
   }
 
-  /* Header row alignment fix */
+  /* Header-linjen trenger ikke ta hensyn til logo i print */
   .pe-header-top {
     justify-content: flex-start;
   }
