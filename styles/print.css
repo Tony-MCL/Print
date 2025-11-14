@@ -253,11 +253,12 @@
     visibility: visible;
   }
 
+  /* 👉 Her reserverer vi plass til "topptekst" */
   #print-root {
     position: static;
     box-shadow: none !important;
-    padding: 0 !important;
     margin: 0 !important;
+    padding: 18mm 0 0 0 !important; /* skyv alt innhold ned */
   }
 
   .pe-page {
@@ -265,7 +266,7 @@
     border-radius: 0;
     max-width: 100%;
     padding: 0;
-    overflow: visible; /* la innhold flyte over flere sider */
+    overflow: visible;
   }
 
   .pe-no-print {
@@ -283,9 +284,10 @@
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 999; /* over innhold, men under eventuelle systemdialoger */
+    z-index: 999;
   }
 
+  /* Vannmerke midt på arket */
   .print-overlay-watermark {
     position: fixed;
     top: 50%;
@@ -298,14 +300,15 @@
     max-width: 75%;
   }
 
+  /* 🔹 Logo som "topptekst": i øvre høyre hjørne, over innholdet */
   .print-overlay-logo {
     position: fixed;
-    top: 10mm;
-    right: 10mm;
+    top: 6mm;        /* nær toppen av papiret */
+    right: 20mm;     /* samme høyre-marg som innholdet */
   }
 
   .print-overlay-logo img {
-    max-height: 30px;
+    max-height: 26px;
     width: auto;
   }
 
