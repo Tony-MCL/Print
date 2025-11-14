@@ -29,12 +29,12 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  opacity: 0.06;
+  opacity: 0.05; /* skjerm */
   z-index: 0;
 }
 
 .pe-watermark img {
-  max-width: 60%;
+  max-width: 65%;
   height: auto;
 }
 
@@ -48,6 +48,18 @@
   margin-bottom: 1.5rem;
 }
 
+.pe-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.pe-header-text {
+  flex: 1;
+  min-width: 0;
+}
+
 .pe-title {
   font-size: 1.6rem;
   margin: 0;
@@ -59,11 +71,28 @@
   color: var(--mcl-text-muted);
 }
 
+/* Logo oppe til høyre */
+
+.pe-logo {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.pe-logo img {
+  max-height: 40px;
+  width: auto;
+}
+
+/* Meta-linje */
+
 .pe-meta {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 0.25rem 1.5rem;
   margin: 0;
+  margin-top: 0.5rem;
 }
 
 .pe-meta-row {
@@ -209,5 +238,10 @@
 
   .pe-no-print {
     display: none !important;
+  }
+
+  /* litt sterkere vannmerke på utskrift */
+  .pe-watermark {
+    opacity: 0.09;
   }
 }
