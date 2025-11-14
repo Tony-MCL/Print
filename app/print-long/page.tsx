@@ -1,11 +1,11 @@
 import PrintLayout from "../../components/print/PrintLayout";
 import PrintButton from "../../components/print/PrintButton";
+import PrintOverlay from "../../components/print/PrintOverlay";
 import type { PrintData } from "../../lib/print/types";
 
 function makeLongDemoData(): PrintData {
   const sections: PrintData["sections"] = [];
 
-  // Flere tekstseksjoner
   for (let i = 1; i <= 5; i++) {
     sections.push({
       id: `intro-${i}`,
@@ -29,7 +29,6 @@ function makeLongDemoData(): PrintData {
     });
   }
 
-  // Stor tabell
   const rows = [];
   for (let i = 1; i <= 40; i++) {
     rows.push({
@@ -70,17 +69,27 @@ export default function PrintLongPage() {
   const data = makeLongDemoData();
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
+  const watermarkUrl = `${basePath}/images/mcl-watermark.png`;
+  const logoUrl = `${basePath}/images/mcl-logo.png`;
+
   return (
     <main className="print-page-shell">
+      {/* Globalt overlay kun for print */}
+      <PrintOverlay
+        watermarkUrl={watermarkUrl}
+        logoUrl={logoUrl}
+        logoAlt="Morning Coffee Labs"
+      />
+
       <div id="print-root">
         <PrintLayout
           title={data.title}
           subtitle={data.subtitle}
           meta={data.meta}
           sections={data.sections}
-          watermarkUrl={`${basePath}/images/mcl-watermark.png`}
+          watermarkUrl={watermarkUrl}
           showWatermark
-          logoUrl={`${basePath}/images/mcl-logo.png`}
+          logoUrl={logoUrl}
           logoAlt="Morning Coffee Labs"
         />
       </div>
