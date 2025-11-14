@@ -158,14 +158,14 @@ body {
 
   @page {
     size: A4;
-    margin: 60mm 10mm 10mm 10mm; /* top right bottom left */
+    margin: 20mm 10mm 10mm 10mm; /* mer normal toppmarg igjen */
   }
 
   body {
     background: #ffffff !important;
   }
 
-  /* Hide everything except print-root + overlay */
+  /* Skjul alt, vis bare print-root + overlay */
   body * {
     visibility: hidden;
   }
@@ -180,12 +180,13 @@ body {
     visibility: visible;
   }
 
-  /* --- SENK ALT INNHOLD MED 20mm --- */
+  /* Viktig: slå av min-height: 100vh i print */
   #print-root {
     position: static;
     box-shadow: none !important;
     margin: 0 !important;
-    padding-top: 20mm !important; /* var ~20mm, vi legger på +20mm */
+    padding: 0 !important;         /* ingen ekstra padding på toppen her */
+    min-height: auto !important;   /* <- denne er nøkkelen */
   }
 
   .pe-page {
@@ -198,25 +199,30 @@ body {
     overflow: visible;
   }
 
-  /* Ikke-show */
   .pe-no-print {
     display: none !important;
   }
 
-  /* Ikke vannmerke inne i kortet */
   .pe-watermark {
     display: none !important;
     visibility: hidden !important;
   }
 
-  /* Ikke logo inne i header */
   .pe-logo {
     display: none !important;
   }
 
-  /* Seksjoner holdes like */
+  /* Seksjoner:
+     - unngå at de splittes midt i
+     - legg litt ekstra luft før aller første innhold,
+       slik at det alltid kommer under overlay-logoen */
   .pe-section {
     page-break-inside: avoid;
+    margin-top: 8px;
+  }
+
+  .pe-section:first-of-type {
+    margin-top: 22mm; /* sørger for at første tekst starter under logoen */
   }
 
   /* --- Overlay --- */
@@ -229,7 +235,6 @@ body {
     z-index: 999;
   }
 
-  /* Vannmerke midt på hver side */
   .print-overlay-watermark {
     position: fixed;
     top: 50%;
@@ -243,7 +248,6 @@ body {
     height: auto;
   }
 
-  /* Logo i topp-høyre hjørne */
   .print-overlay-logo {
     position: fixed;
     top: 2mm;
@@ -251,7 +255,7 @@ body {
   }
 
   .print-overlay-logo img {
-    max-height: 26px;
+    max-height: 20px;
     width: auto;
   }
 
