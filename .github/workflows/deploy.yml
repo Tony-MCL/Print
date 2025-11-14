@@ -1,9 +1,8 @@
-name: Deploy static site to GitHub Pages
+name: Deploy MCL PrintEngine to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -25,12 +24,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build and export
+      - name: Build
         run: npm run build
 
       - name: Upload artifact
@@ -39,8 +39,8 @@ jobs:
           path: ./out
 
   deploy:
-    runs-on: ubuntu-latest
     needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
