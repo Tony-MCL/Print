@@ -1,4 +1,4 @@
-/* Grunnleggende rapport-layout */
+/* ---------- Grunnleggende rapport-layout (skjerm) ---------- */
 
 .pe-root {
   display: flex;
@@ -20,7 +20,7 @@
   overflow: hidden;
 }
 
-/* Vannmerke – skjerm */
+/* Vannmerke – kun for skjermpreview */
 
 .pe-watermark {
   position: absolute;
@@ -29,7 +29,7 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  opacity: 0.05; /* skjerm */
+  opacity: 0.05;
   z-index: 0;
 }
 
@@ -71,7 +71,7 @@
   color: var(--mcl-text-muted);
 }
 
-/* Logo – skjerm (ligger ved siden av tittel) */
+/* Logo – skjerm (ved siden av tittel) */
 
 .pe-logo {
   flex: 0 0 auto;
@@ -117,7 +117,8 @@
   font-size: 0.9rem;
 }
 
-/* Viktig for utskrift: unngå at seksjoner splittes stygt */
+/* Unngå stygge sideskift */
+
 .pe-section {
   page-break-inside: avoid;
   break-inside: avoid;
@@ -173,7 +174,6 @@
   margin-top: 0.4rem;
 }
 
-/* Unngå at rader splittes over sidene */
 .pe-table tr {
   page-break-inside: avoid;
   break-inside: avoid;
@@ -209,11 +209,25 @@
   text-align: right;
 }
 
-/* Skjul ting i print, og løft frem kun #print-root */
+/* ---------- Globalt print-overlay ---------- */
+
+#print-overlay {
+  display: none; /* kun i @media print */
+}
+
+#print-overlay img {
+  max-width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+/* ---------- Felles: elementer som ikke skal i print ---------- */
 
 .pe-no-print {
   /* Skjules kun i @media print */
 }
+
+/* ---------- PRINT ---------- */
 
 @media print {
   @page {
@@ -231,6 +245,11 @@
 
   #print-root,
   #print-root * {
+    visibility: visible;
+  }
+
+  #print-overlay,
+  #print-overlay * {
     visibility: visible;
   }
 
@@ -253,38 +272,44 @@
     display: none !important;
   }
 
-  /* Vannmerke: midt på hvert ark (litt tydeligere) */
+  /* Skjul kort-vannmerket i print – overlay tar over */
   .pe-watermark {
+    display: none !important;
+  }
+
+  /* Globalt overlay som legges oppå alle sider */
+  #print-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999; /* over innhold, men under eventuelle systemdialoger */
+  }
+
+  .print-overlay-watermark {
     position: fixed;
     top: 50%;
     left: 50%;
-    inset: auto;
     transform: translate(-50%, -50%);
     opacity: 0.1;
-    z-index: 0;
   }
 
-  .pe-watermark img {
+  .print-overlay-watermark img {
     max-width: 75%;
   }
 
-  /* Logo: helt oppe i høyre hjørne på hvert ark */
-  .pe-logo {
+  .print-overlay-logo {
     position: fixed;
-    top: 10mm;    /* nærmere hjørnet */
+    top: 10mm;
     right: 10mm;
-    z-index: 2;
-    display: block;           /* ikke flex i print */
-    align-items: initial;
-    justify-content: initial;
   }
 
-  .pe-logo img {
+  .print-overlay-logo img {
     max-height: 30px;
     width: auto;
   }
 
-  /* Header-innholdet skal ikke “savne” logoen i print */
+  /* Headeren trenger ikke ta hensyn til logo i print */
   .pe-header-top {
     justify-content: flex-start;
   }
