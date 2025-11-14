@@ -1,0 +1,213 @@
+/* Grunnleggende rapport-layout */
+
+.pe-root {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: var(--mcl-bg);
+}
+
+.pe-page {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  background: var(--mcl-surface);
+  color: var(--mcl-text);
+  box-shadow: var(--mcl-shadow-soft);
+  border-radius: var(--mcl-radius-lg);
+  padding: 2.5rem 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Vannmerke */
+
+.pe-watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0.06;
+  z-index: 0;
+}
+
+.pe-watermark img {
+  max-width: 60%;
+  height: auto;
+}
+
+/* Header */
+
+.pe-header {
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid var(--mcl-border-subtle);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pe-title {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.pe-subtitle {
+  font-size: 1rem;
+  margin: 0.2rem 0 0.8rem;
+  color: var(--mcl-text-muted);
+}
+
+.pe-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.25rem 1.5rem;
+  margin: 0;
+}
+
+.pe-meta-row {
+  display: flex;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.pe-meta-row dt {
+  font-weight: 600;
+}
+
+.pe-meta-row dd {
+  margin: 0;
+}
+
+/* Innhold */
+
+.pe-content {
+  position: relative;
+  z-index: 1;
+  font-size: 0.9rem;
+}
+
+.pe-section + .pe-section {
+  margin-top: 1.1rem;
+}
+
+.pe-section-title {
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem;
+}
+
+/* Paragraph */
+
+.pe-paragraph {
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+}
+
+/* Key/value-lister */
+
+.pe-keyvalue-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.2rem 1rem;
+  margin: 0;
+}
+
+.pe-keyvalue-list--two-columns {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pe-kv-row {
+  display: flex;
+  font-size: 0.9rem;
+}
+
+.pe-kv-row dt {
+  flex: 0 0 45%;
+  font-weight: 600;
+}
+
+.pe-kv-row dd {
+  flex: 1;
+  margin: 0;
+}
+
+/* Tabeller */
+
+.pe-table-wrapper {
+  margin-top: 0.4rem;
+}
+
+.pe-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.pe-table th,
+.pe-table td {
+  padding: 0.25rem 0.4rem;
+  border: 1px solid var(--mcl-border-subtle);
+}
+
+.pe-table th {
+  background: var(--mcl-surface-muted);
+  text-align: left;
+  font-weight: 600;
+}
+
+.pe-align-left {
+  text-align: left;
+}
+
+.pe-align-center {
+  text-align: center;
+}
+
+.pe-align-right {
+  text-align: right;
+}
+
+/* Skjul ting i print, og løft frem kun #print-root */
+
+.pe-no-print {
+  /* Skjules kun i @media print */
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 20mm;
+  }
+
+  body {
+    background: #ffffff !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #print-root,
+  #print-root * {
+    visibility: visible;
+  }
+
+  #print-root {
+    position: static;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .pe-page {
+    box-shadow: none;
+    border-radius: 0;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .pe-no-print {
+    display: none !important;
+  }
+}
