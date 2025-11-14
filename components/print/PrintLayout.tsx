@@ -1,9 +1,14 @@
-import type { PrintData, PrintSection as PrintSectionType } from "../../lib/print/types";
+import type {
+  PrintData,
+  PrintSection as PrintSectionType
+} from "../../lib/print/types";
 import PrintSection from "./PrintSection";
 
 type PrintLayoutProps = PrintData & {
   watermarkUrl?: string;
   showWatermark?: boolean;
+  logoUrl?: string;
+  logoAlt?: string;
 };
 
 export default function PrintLayout({
@@ -12,7 +17,9 @@ export default function PrintLayout({
   meta,
   sections,
   watermarkUrl,
-  showWatermark = false
+  showWatermark = false,
+  logoUrl,
+  logoAlt
 }: PrintLayoutProps) {
   return (
     <div className="pe-root">
@@ -24,8 +31,19 @@ export default function PrintLayout({
         )}
 
         <header className="pe-header">
-          <h1 className="pe-title">{title}</h1>
-          {subtitle && <h2 className="pe-subtitle">{subtitle}</h2>}
+          <div className="pe-header-top">
+            <div className="pe-header-text">
+              <h1 className="pe-title">{title}</h1>
+              {subtitle && <h2 className="pe-subtitle">{subtitle}</h2>}
+            </div>
+
+            {logoUrl && (
+              <div className="pe-logo">
+                <img src={logoUrl} alt={logoAlt ?? "MCL logo"} />
+              </div>
+            )}
+          </div>
+
           {meta && meta.length > 0 && (
             <dl className="pe-meta">
               {meta.map((item) => (
