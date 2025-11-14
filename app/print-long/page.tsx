@@ -1,3 +1,4 @@
+// app/print-long/page.tsx
 import PrintLayout from "../../components/print/PrintLayout";
 import PrintButton from "../../components/print/PrintButton";
 import PrintOverlay from "../../components/print/PrintOverlay";
@@ -15,15 +16,13 @@ function makeLongDemoData(): PrintData {
           type: "paragraph",
           text:
             "Dette er en lengre demoseksjon brukt for å teste utskrift over flere sider. " +
-            "Målet er å se hvordan seksjoner og tabeller oppfører seg når innholdet strekker seg utover én A4-side. " +
-            "Teksten er bare fylltekst, men strukturen er tilsvarende det vi kan forvente fra faktiske rapporter i appene."
+            "Målet er å se hvordan seksjoner og tabeller oppfører seg når innholdet strekker seg utover én A4-side."
         },
         {
           type: "paragraph",
           text:
             "Vi ønsker å unngå at overskrifter havner nederst på en side med tilhørende tekst på neste, " +
-            "og at tabellrader blir delt i to mellom sider. CSS-reglene page-break-inside/break-inside på seksjoner og rader " +
-            "skal redusere risikoen for dette."
+            "og at tabellrader blir delt i to mellom sider."
         }
       ]
     });
@@ -68,35 +67,36 @@ function makeLongDemoData(): PrintData {
 export default function PrintLongPage() {
   const data = makeLongDemoData();
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-
   const watermarkUrl = `${basePath}/images/mcl-watermark.png`;
   const logoUrl = `${basePath}/images/mcl-logo.png`;
 
   return (
-    <main className="print-page-shell">
-      {/* Globalt overlay kun for print */}
+    <>
+      {/* Overlay utenfor print-root */}
       <PrintOverlay
         watermarkUrl={watermarkUrl}
         logoUrl={logoUrl}
         logoAlt="Morning Coffee Labs"
       />
 
-      <div id="print-root">
-        <PrintLayout
-          title={data.title}
-          subtitle={data.subtitle}
-          meta={data.meta}
-          sections={data.sections}
-          watermarkUrl={watermarkUrl}
-          showWatermark
-          logoUrl={logoUrl}
-          logoAlt="Morning Coffee Labs"
-        />
-      </div>
+      <main className="print-page-shell">
+        <div id="print-root">
+          <PrintLayout
+            title={data.title}
+            subtitle={data.subtitle}
+            meta={data.meta}
+            sections={data.sections}
+            watermarkUrl={watermarkUrl}
+            showWatermark
+            logoUrl={logoUrl}
+            logoAlt="Morning Coffee Labs"
+          />
+        </div>
 
-      <div className="print-toolbar pe-no-print">
-        <PrintButton label="Skriv ut / lagre som PDF (lang rapport)" />
-      </div>
-    </main>
+        <div className="print-toolbar pe-no-print">
+          <PrintButton label="Skriv ut / lagre som PDF (lang rapport)" />
+        </div>
+      </main>
+    </>
   );
 }
