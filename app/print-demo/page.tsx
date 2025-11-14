@@ -93,7 +93,6 @@ const demoData: PrintData = {
 export default function PrintDemoPage() {
   return (
     <main className="print-page-shell">
-      {/* Denne wrapperen er viktig for @media print-reglene */}
       <div id="print-root">
         <PrintLayout
           title={demoData.title}
@@ -102,10 +101,11 @@ export default function PrintDemoPage() {
           sections={demoData.sections}
           watermarkUrl="/images/mcl-watermark.png"
           showWatermark
+          logoUrl="/images/mcl-logo.png"
+          logoAlt="Morning Coffee Labs"
         />
       </div>
 
-      {/* Denne knappen skjules i selve utskriften */}
       <div className="print-toolbar pe-no-print">
         <PrintButton label="Skriv ut / lagre som PDF" />
       </div>
