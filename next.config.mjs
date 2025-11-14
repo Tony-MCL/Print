@@ -1,22 +1,25 @@
 /** @type {import('next').NextConfig} */
 
-// NB: sett denne til nøyaktig repo-navn på GitHub
+// NB: repo-navn
 const repoName = "Print";
 
 const isProd = process.env.NODE_ENV === "production";
 
+const basePath = isProd ? `/${repoName}` : "";
+
 const nextConfig = {
   output: "export",
-
-  // På GitHub Pages må alt ligge under /<repo>/...
-  basePath: isProd ? `/${repoName}` : "",
-  assetPrefix: isProd ? `/${repoName}` : "",
-
+  basePath,
+  assetPrefix: basePath,
   images: {
     unoptimized: true
   },
 
-  // For denne PrintEngine-prototypen: ikke stopp build på TS/ESLint-feil
+  // Gjør basePath tilgjengelig i kode
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath
+  },
+
   typescript: {
     ignoreBuildErrors: true
   },
