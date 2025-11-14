@@ -232,13 +232,14 @@
 @media print {
   @page {
     size: A4;
-    margin: 10mm;           /* var 20mm – mindre marger */
+    margin: 10mm;           /* utskriftsmarger (kan justeres senere) */
   }
 
   body {
     background: #ffffff !important;
   }
 
+  /* “visibility-hack”: skjul alt som ikke er under #print-root/#print-overlay */
   body * {
     visibility: hidden;
   }
@@ -253,12 +254,12 @@
     visibility: visible;
   }
 
-  /* reserverer plass til header/topptekst */
+  /* Reservér litt plass til topptekst (logo) og skyv innholdet ned */
   #print-root {
     position: static;
     box-shadow: none !important;
     margin: 0 !important;
-    padding: 14mm 0 0 0 !important;  /* var 18mm – litt nærmere toppen */
+    padding: 14mm 0 0 0 !important;  /* plass til header/logo */
   }
 
   .pe-page {
@@ -266,17 +267,25 @@
     border-radius: 0;
     max-width: 100%;
     padding: 0;
-    overflow: visible;
+    overflow: visible; /* la innhold flyte over flere sider */
   }
 
+  /* Skjul elementer som eksplisitt ikke skal med i print */
   .pe-no-print {
     display: none !important;
   }
 
+  /* Skjul vannmerket som ligger inne i selve kortet – overlay tar over i print */
   .pe-watermark {
     display: none !important;
   }
 
+  /* Skjul logoen inne i headeren på rapporten – vi bruker kun overlay-logo i print */
+  .pe-logo {
+    display: none !important;
+  }
+
+  /* Globalt overlay som legges over alle sider i utskrift */
   #print-overlay {
     display: block;
     position: fixed;
@@ -285,6 +294,7 @@
     z-index: 999;
   }
 
+  /* Vannmerke midt på hvert ark */
   .print-overlay-watermark {
     position: fixed;
     top: 50%;
@@ -295,13 +305,14 @@
 
   .print-overlay-watermark img {
     max-width: 75%;
+    height: auto;
   }
 
-  /* logo nesten helt oppe i hjørnet, på linje med tekst-margen */
+  /* Logo i “topptekst” – oppe til høyre, samme høyremarg som innholdet */
   .print-overlay-logo {
     position: fixed;
-    top: 4mm;        /* nær toppen */
-    right: 10mm;     /* samme som @page-margin høyre */
+    top: 4mm;        /* nær toppen av arket */
+    right: 10mm;     /* samme som @page-margin høyre side */
   }
 
   .print-overlay-logo img {
@@ -309,6 +320,7 @@
     width: auto;
   }
 
+  /* Header-linjen trenger ikke ta hensyn til logo i print */
   .pe-header-top {
     justify-content: flex-start;
   }
