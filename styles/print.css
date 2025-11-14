@@ -1,26 +1,120 @@
-/* ---------- Grunnleggende rapport-layout (skjerm) ---------- */
+/* =========================================================
+   MCL PrintEngine – screen + print styles
+   Denne fila kan brukes på tvers av apper.
+   ========================================================= */
 
-.pe-root {
+/* ------------------ Screen layout ------------------ */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #2b211a;
+  background: #f8efe5;
+}
+
+/* Root for selve rapporten (skjerm) */
+#print-root {
+  min-height: 100vh;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 2rem 1rem;
-  background: var(--mcl-bg);
-}
-
-.pe-page {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  background: var(--mcl-surface);
-  color: var(--mcl-text);
-  box-shadow: var(--mcl-shadow-soft);
-  border-radius: var(--mcl-radius-lg);
-  padding: 2.5rem 2rem;
+  padding: 32px 16px;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
-/* Vannmerke – kun for skjermpreview */
+/* Kortet som rapporten ligger i */
+.pe-page {
+  max-width: 800px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 32px 40px 40px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Header (tittel + logo + meta) */
+
+.pe-header {
+  margin-bottom: 24px;
+}
+
+.pe-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pe-title-block h1 {
+  font-size: 24px;
+  margin: 0 0 4px 0;
+}
+
+.pe-title-block p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pe-meta-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  font-size: 12px;
+}
+
+.pe-meta-label {
+  font-weight: 600;
+}
+
+/* Logo inne i headeren (synlig på skjerm, skjules i print) */
+.pe-logo img {
+  max-height: 32px;
+  width: auto;
+}
+
+/* Seksjoner i rapporten */
+
+.pe-section {
+  margin-top: 16px;
+}
+
+.pe-section:first-of-type {
+  margin-top: 0;
+}
+
+.pe-section-title {
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+/* Tabell-oppsett */
+
+.pe-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.pe-table th,
+.pe-table td {
+  border: 1px solid #e0d4c7;
+  padding: 4px 8px;
+  text-align: left;
+}
+
+.pe-table th {
+  background: #f2e1cf;
+  font-weight: 600;
+}
+
+/* Vannmerke inne i kortet – brukes kun på skjerm */
 
 .pe-watermark {
   position: absolute;
@@ -29,216 +123,44 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.08;
   z-index: 0;
 }
 
 .pe-watermark img {
-  max-width: 65%;
+  max-width: 80%;
   height: auto;
 }
 
-/* Header */
-
-.pe-header {
-  position: relative;
-  z-index: 1;
-  border-bottom: 1px solid var(--mcl-border-subtle);
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.pe-header-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.pe-header-text {
-  flex: 1;
-  min-width: 0;
-}
-
-.pe-title {
-  font-size: 1.6rem;
-  margin: 0;
-}
-
-.pe-subtitle {
-  font-size: 1rem;
-  margin: 0.2rem 0 0.8rem;
-  color: var(--mcl-text-muted);
-}
-
-/* Logo – skjerm (ved siden av tittel) */
-
-.pe-logo {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-}
-
-.pe-logo img {
-  max-height: 40px;
-  width: auto;
-}
-
-/* Meta-linje */
-
-.pe-meta {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.25rem 1.5rem;
-  margin: 0;
-  margin-top: 0.5rem;
-}
-
-.pe-meta-row {
-  display: flex;
-  gap: 0.25rem;
-  font-size: 0.85rem;
-}
-
-.pe-meta-row dt {
-  font-weight: 600;
-}
-
-.pe-meta-row dd {
-  margin: 0;
-}
-
-/* Innhold */
+/* Innhold skal ligge over vannmerket */
 
 .pe-content {
   position: relative;
   z-index: 1;
-  font-size: 0.9rem;
 }
 
-/* Unngå stygge sideskift */
-
-.pe-section {
-  page-break-inside: avoid;
-  break-inside: avoid;
-}
-
-.pe-section + .pe-section {
-  margin-top: 1.1rem;
-}
-
-.pe-section-title {
-  font-size: 1.05rem;
-  margin: 0 0 0.5rem;
-}
-
-/* Paragraph */
-
-.pe-paragraph {
-  margin: 0 0 0.5rem;
-  line-height: 1.4;
-}
-
-/* Key/value-lister */
-
-.pe-keyvalue-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.2rem 1rem;
-  margin: 0;
-}
-
-.pe-keyvalue-list--two-columns {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.pe-kv-row {
-  display: flex;
-  font-size: 0.9rem;
-}
-
-.pe-kv-row dt {
-  flex: 0 0 45%;
-  font-weight: 600;
-}
-
-.pe-kv-row dd {
-  flex: 1;
-  margin: 0;
-}
-
-/* Tabeller */
-
-.pe-table-wrapper {
-  margin-top: 0.4rem;
-}
-
-.pe-table tr {
-  page-break-inside: avoid;
-  break-inside: avoid;
-}
-
-.pe-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85rem;
-}
-
-.pe-table th,
-.pe-table td {
-  padding: 0.25rem 0.4rem;
-  border: 1px solid var(--mcl-border-subtle);
-}
-
-.pe-table th {
-  background: var(--mcl-surface-muted);
-  text-align: left;
-  font-weight: 600;
-}
-
-.pe-align-left {
-  text-align: left;
-}
-
-.pe-align-center {
-  text-align: center;
-}
-
-.pe-align-right {
-  text-align: right;
-}
-
-/* ---------- Globalt print-overlay ---------- */
-
-#print-overlay {
-  display: none; /* kun i @media print */
-}
-
-#print-overlay img {
-  max-width: 100%;
-  height: auto;
-  pointer-events: none;
-}
-
-/* ---------- Felles: elementer som ikke skal i print ---------- */
+/* Print-knapp / andre elementer som ikke skal være med på utskrift */
 
 .pe-no-print {
-  /* Skjules kun i @media print */
+  margin-top: 32px;
 }
 
-/* ---------- PRINT ---------- */
+/* Overlay for logo/vannmerke i print – skjules på skjerm */
+
+#print-overlay {
+  display: none;
+}
+
+/* ----------------------------------------------------
+   PRINT
+   ---------------------------------------------------- */
 
 @media print {
-  /* Standard for alle sider UNNTATT førstesiden */
+  /* A4, faste marger alle sider
+     (Chromium støtter i praksis bare felles @page + @page:first) */
   @page {
     size: A4;
-    margin: 30mm 10mm 10mm 10mm; /* top right bottom left – litt ekstra top */
-  }
-
-  /* Egen marg for førstesiden (slik du likte den) */
-  @page:first {
-    margin: 20mm 10mm 10mm 10mm;
+    margin: 20mm 10mm 10mm 10mm; /* top right bottom left */
   }
 
   body {
@@ -260,36 +182,51 @@
     visibility: visible;
   }
 
-  /* Samme padding på innholdet alle sider – forskjellen tas i @page-margin */
+  /* Root som inneholder rapporten i utskrift */
   #print-root {
     position: static;
     box-shadow: none !important;
     margin: 0 !important;
-    padding: 20mm 0 0 0 !important; /* plass til logo-headeren */
+    padding: 20mm 0 0 0 !important; /* plass til overlay-logo */
   }
 
   .pe-page {
     box-shadow: none;
     border-radius: 0;
     max-width: 100%;
+    width: 100%;
     padding: 0;
+    margin: 0;
     overflow: visible;
   }
 
+  /* Alt merket som "ikke print" skjules */
   .pe-no-print {
     display: none !important;
   }
 
-  /* Skjul inline watermark & inline logo i print – vi bruker overlay */
+  /* Vi bruker overlay-vannmerke i print – ikke den inne i kortet */
   .pe-watermark {
     display: none !important;
   }
 
+  /* Logo inne i headeren skjules i print – bare overlay-logo brukes */
   .pe-logo {
     display: none !important;
   }
 
-  /* Print overlay */
+  /* Seksjoner: gi litt ekstra luft mellom dem,
+     men behold første seksjon lik */
+  .pe-section {
+    page-break-inside: avoid;
+    margin-top: 12mm;
+  }
+
+  .pe-section:first-of-type {
+    margin-top: 0;
+  }
+
+  /* Print overlay aktiveres og ligger over alle sider */
   #print-overlay {
     display: block;
     position: fixed;
@@ -298,7 +235,7 @@
     z-index: 999;
   }
 
-  /* Vannmerke midt på hver side */
+  /* Vannmerke på alle sider (midt på arket) */
   .print-overlay-watermark {
     position: fixed;
     top: 50%;
@@ -312,11 +249,11 @@
     height: auto;
   }
 
-  /* Logo i “topptekst” – samme posisjon på alle sider */
+  /* Logo i topp-høyre hjørne – ligger utenfor innholdet */
   .print-overlay-logo {
     position: fixed;
-    top: 4mm;        /* beholder plasseringen du likte */
-    right: 10mm;     /* på linje med høyremarg */
+    top: 4mm;
+    right: 10mm;
   }
 
   .print-overlay-logo img {
