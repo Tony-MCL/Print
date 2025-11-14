@@ -91,6 +91,8 @@ const demoData: PrintData = {
 };
 
 export default function PrintDemoPage() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
   return (
     <main className="print-page-shell">
       <div id="print-root">
@@ -99,9 +101,9 @@ export default function PrintDemoPage() {
           subtitle={demoData.subtitle}
           meta={demoData.meta}
           sections={demoData.sections}
-          watermarkUrl="/images/mcl-watermark.png"
+          watermarkUrl={`${basePath}/images/mcl-watermark.png`}
           showWatermark
-          logoUrl="/images/mcl-logo.png"
+          logoUrl={`${basePath}/images/mcl-logo.png`}
           logoAlt="Morning Coffee Labs"
         />
       </div>
