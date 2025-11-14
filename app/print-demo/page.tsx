@@ -1,5 +1,6 @@
 import PrintLayout from "../../components/print/PrintLayout";
 import PrintButton from "../../components/print/PrintButton";
+import PrintOverlay from "../../components/print/PrintOverlay";
 import type { PrintData } from "../../lib/print/types";
 
 const demoData: PrintData = {
@@ -17,7 +18,8 @@ const demoData: PrintData = {
       content: [
         {
           type: "paragraph",
-          text: "Ohms lov beskriver sammenhengen mellom spenning, strøm og resistans i en elektrisk krets."
+          text:
+            "Ohms lov beskriver sammenhengen mellom spenning, strøm og resistans i en elektrisk krets."
         }
       ]
     },
@@ -93,17 +95,27 @@ const demoData: PrintData = {
 export default function PrintDemoPage() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
+  const watermarkUrl = `${basePath}/images/mcl-watermark.png`;
+  const logoUrl = `${basePath}/images/mcl-logo.png`;
+
   return (
     <main className="print-page-shell">
+      {/* Globalt overlay brukes kun i print */}
+      <PrintOverlay
+        watermarkUrl={watermarkUrl}
+        logoUrl={logoUrl}
+        logoAlt="Morning Coffee Labs"
+      />
+
       <div id="print-root">
         <PrintLayout
           title={demoData.title}
           subtitle={demoData.subtitle}
           meta={demoData.meta}
           sections={demoData.sections}
-          watermarkUrl={`${basePath}/images/mcl-watermark.png`}
+          watermarkUrl={watermarkUrl}
           showWatermark
-          logoUrl={`${basePath}/images/mcl-logo.png`}
+          logoUrl={logoUrl}
           logoAlt="Morning Coffee Labs"
         />
       </div>
