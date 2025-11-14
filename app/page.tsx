@@ -14,17 +14,25 @@ export default function HomePage() {
         <p>
           Dette repoet er en isolert demo av Morning Coffee Labs PrintEngine.
         </p>
-        <p>
-          Bruk lenken under for å åpne en ren print-visning med dummy-data
-          (formelrapport):
-        </p>
-        <p>
-          <Link href="/print-demo" className="mcl-button">
-            Åpne print-demo
-          </Link>
-        </p>
+
+        <h2>Enkle demosider</h2>
+        <ul>
+          <li>
+            <Link href="/print-demo" className="mcl-button">
+              Enkel formelrapport
+            </Link>
+          </li>
+        </ul>
+
+        <h2>Test av robuste utskrifter</h2>
+        <ul>
+          <li>
+            <Link href="/print-long" className="mcl-button">
+              Lang rapport (flere sider)
+            </Link>
+          </li>
+        </ul>
       </section>
     </main>
   );
 }
-
