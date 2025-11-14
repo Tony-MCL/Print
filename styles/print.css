@@ -253,31 +253,39 @@
     display: none !important;
   }
 
-  /* Vannmerke: midt på hvert ark */
+  /* Vannmerke: midt på hvert ark (litt tydeligere) */
   .pe-watermark {
     position: fixed;
     top: 50%;
     left: 50%;
     inset: auto;
     transform: translate(-50%, -50%);
-    opacity: 0.08;
+    opacity: 0.1;
     z-index: 0;
   }
 
   .pe-watermark img {
-    max-width: 70%;
+    max-width: 75%;
   }
 
-  /* Logo: øverst til høyre på hvert ark */
+  /* Logo: helt oppe i høyre hjørne på hvert ark */
   .pe-logo {
     position: fixed;
-    top: 15mm;   /* juster ved behov */
-    right: 20mm; /* juster ved behov */
-    transform: none;
+    top: 10mm;    /* nærmere hjørnet */
+    right: 10mm;
     z-index: 2;
+    display: block;           /* ikke flex i print */
+    align-items: initial;
+    justify-content: initial;
   }
 
   .pe-logo img {
     max-height: 30px;
+    width: auto;
+  }
+
+  /* Header-innholdet skal ikke “savne” logoen i print */
+  .pe-header-top {
+    justify-content: flex-start;
   }
 }
